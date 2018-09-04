@@ -17,11 +17,18 @@ int main(int argc, char* argv[])
 int count_files(const char*name)
 {
 	DIR* dir = opendir(name);
+	if (!dir) {
+		return 0;
+	}
 	int amount = 0;
 	struct dirent* entry;
-	while (entry = readdir(dir)) {
-		if (strcmp(entry->d_name, ".") == 0) continue;
-		if (strcmp(entry->d_name, "..") == 0) continue;
+	while ((entry = readdir(dir))) {
+		if (strcmp(entry->d_name, ".") == 0) {
+			 continue;
+		}
+		if (strcmp(entry->d_name, "..") == 0) {
+			continue;
+		}
 		++amount;
 	}
 	return amount;
